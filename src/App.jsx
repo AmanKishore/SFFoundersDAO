@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ethers } from "ethers";
+import { UnsupportedChainIdError } from "@web3-react/core";
 
 // import thirdweb
 import { useWeb3 } from "@3rdweb/hooks";
@@ -136,6 +137,18 @@ const App = () => {
     sdk.setProviderOrSigner(signer);
   }, [signer]);
 
+  if (error instanceof UnsupportedChainIdError ) {
+    return (
+      <div className="unsupported-network">
+        <h2>Please connect to Rinkeby</h2>
+        <p>
+          This dapp only works on the Rinkeby network, please switch networks
+          in your connected wallet.
+        </p>
+      </div>
+    );
+  }
+
   // Now, we combine the memberAddresses and memberTokenAmounts into a single array
   const memberList = useMemo(() => {
     return memberAddresses.map((address) => {
@@ -195,8 +208,8 @@ const App = () => {
   if (hasClaimedNFT) {
     return (
       <div className="member-page">
-        <h1>🍪DAO Member Page</h1>
-        <p>Congratulations on being a member</p>
+        <h1>GM SF Founders!</h1>
+        <p>WAGMI</p>
         <div>
           <div>
             <h2>Member List</h2>
